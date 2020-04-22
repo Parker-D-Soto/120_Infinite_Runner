@@ -6,6 +6,10 @@ class Dungball extends Phaser.GameObjects.Sprite {
 
         this.scalingX = 1
         this.scalingY = 1
+        this.currentWidth = this.width;
+        this.newWidth = this.width;
+        this.currentHeight = this.height;
+        this.newHeight = 0;
     }
     
     update(direction) {

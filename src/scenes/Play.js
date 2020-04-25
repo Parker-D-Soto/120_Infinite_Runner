@@ -16,9 +16,8 @@ class Play extends Phaser.Scene {
         this.add.rectangle(0, 443, 780, 32, 0x0000FF).setOrigin(0, 0);
         this.ball = new Dungball(this, game.config.width / 2 + 80, 432, 'dung').setOrigin(0);
         this.player = new Scaraphys(this, game.config.width / 2, 380, 'playerSprite', 0, this.ball, game.settings.startingSpeed).setOrigin(0, 0);
+        this.foot = new Foot(this, Phaser.Math.Between(0, game.config.width), 0, 'dung',).setOrigin(0, 0);
 
-        
-        
         //define keyboard keys
         keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
         keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
@@ -26,5 +25,7 @@ class Play extends Phaser.Scene {
 
     update() {
         this.player.update();
+        this.foot.update();
     }
+
 }

@@ -34,7 +34,7 @@ class Play extends Phaser.Scene {
             this.clock = this.time.delayedCall(1000, () => {
                 var foot_x = Phaser.Math.Between(100, game.config.width-100);
                 this.foot.reset(foot_x);
-                this.shadow.reset(foor_x);
+                this.shadow.reset(foot_x);
                 this.foot.set_falling(1);
             }, null, this);
         }

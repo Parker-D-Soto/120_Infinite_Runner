@@ -14,7 +14,8 @@ class Dungball extends Phaser.GameObjects.Sprite {
     }
     
     update(direction) {
-        this.angle += 1
+        this.setAngle(this.rotationAngle);
+        this.rotationAngle += 1;
         this.x = this.x + direction;
         this.scalingX += 0.005;
         this.scalingY += 0.005;

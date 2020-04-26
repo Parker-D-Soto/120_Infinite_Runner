@@ -3,21 +3,31 @@ class Foot extends Phaser.GameObjects.Sprite {
         super(scene, x, y, texture, frame);
 
         scene.add.existing(this); //add object to existing scene
-
+        this.falling = 1;
 
     }
     
     update() {
-        if (this.y < 400) {
-            this.y = this.y + 5;
-        } else {
-            this.reset();
+        if (this.falling != 3) {
+            if (this.y < -100) {
+                this.y = this.y + 10;
+            } else {
+                this.falling = 2;
+            }
         }
     }
 
-    reset() {
-        this.x = Phaser.Math.Between(0, game.config.width);
-        this.y = 0;
+    reset(x) {
+        this.x = x;
+        this.y = -1000;
         console.log('foot reset')
+    }
+
+    check_falling() {
+        return this.falling;
+    }
+
+    set_falling(f){
+        this.falling = f;
     }
 }

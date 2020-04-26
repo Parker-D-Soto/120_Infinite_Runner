@@ -4,9 +4,10 @@ class Scaraphys extends Phaser.GameObjects.Sprite {
 
         scene.add.existing(this); //add object to existing scene
 
-        this.dBall = rollingball
+        this.dBall = rollingball;
 
-        this.speed = playerSpeed
+        this.initialSpeed = playerSpeed;
+        this.speed = playerSpeed;
     }
     
     update() {
@@ -14,6 +15,9 @@ class Scaraphys extends Phaser.GameObjects.Sprite {
             this.x -= this.speed;
             var ballSpeed = this.speed * -1
             this.dBall.update(ballSpeed);
+            if(this.speed > 0.25) {
+                this.speed = this.initialSpeed - this.dBall.speedConversion;
+            }
         } else if(keyRIGHT.isDown && this.x <= 630) {
             this.x += this.speed;
             this.dBall.update(this.speed);

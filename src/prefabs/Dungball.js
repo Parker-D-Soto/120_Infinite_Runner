@@ -4,14 +4,13 @@ class Dungball extends Phaser.GameObjects.Sprite {
 
         scene.add.existing(this); //add object to existing scene
 
-        this.scalingX = 1;
-        this.scalingY = 1;
+        this.scalingX = 0.05;
+        this.scalingY = 0.05;
+        this.setScale(this.scalingX, this.scalingY);
         this.rotationAngle = 0;
-        this.heightDifference = 0;
-        this.currentHeight = this.height;
-        this.initialY = this.y;
-        this.initialX = this.x;
         this.speedConversion = 0;
+        this.originalWidth = this.width * this.scalingX;
+        this.originalHeight = this.height * this.scalingY;
     }
     
     update(direction) {
@@ -19,13 +18,16 @@ class Dungball extends Phaser.GameObjects.Sprite {
         this.rotationAngle += 1;
         this.x = this.x + direction;
         if (this.scalingX < 10){
-            this.scalingX += 0.005;
-            this.scalingY += 0.005;
+            this.scalingX += 0.005 * .05;
+            this.scalingY += 0.005 * .05;
             this.speedConversion += 0.005;
         }
         this.setScale(this.scalingX, this.scalingY);
-        this.currentHeight = this.height * this.scalingY;
-        this.heightDifference = this.currentHeight - this.height;
-        this.y = this.initialY - this.heightDifference;
+        this.newHeight = this.height * this.scalingX;
+        this.newWidth = this.width * this.scalingY;
+        this.x += (this.newWidth - this.originalWidth) / 2;
+        this.y -= (this.newHeight - this.originalHeight) / 2;
+        this.originalWidth = this.newWidth;
+        this.originalHeight = this.newHeight;
     }
 }

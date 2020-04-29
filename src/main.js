@@ -2,6 +2,12 @@ let config = {
     type: Phaser.CANVAS,
     width: 720,
     height: 480,
+    physics: {
+        default: 'arcade',
+        arcade: {
+            debug: true
+        }
+    },
     scene: [Play]
 };
 
@@ -12,4 +18,4 @@ game.settings = {
 }
 
 //reserve some keyboard variables
-let keyLEFT, keyRIGHT;
+let keyLEFT, keyRIGHT, keyF;

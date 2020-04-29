@@ -23,20 +23,34 @@ class Play extends Phaser.Scene {
         //define keyboard keys
         keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
         keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
+        keyF = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F);
+        this.gameOver = false;
+
+        this.physics.add.overlap(this.player, this.foot, this.setgameOver, null, this);
     }
 
     update() {
-        this.player.update();
-        if (this.foot.check_falling() == 1 || this.foot.check_falling() == 3) {
-            this.foot.update();
-        } else if (this.foot.check_falling() == 2) {
-            this.foot.set_falling(3);
-            this.clock = this.time.delayedCall(1000, () => {
-                var foot_x = Phaser.Math.Between(100, game.config.width-100);
-                this.foot.reset(foot_x);
-                this.shadow.reset(foot_x);
-                this.foot.set_falling(1);
-            }, null, this);
+        if(!this.gameOver) {
+            this.player.update();
+            if (this.foot.check_falling() == 1 || this.foot.check_falling() == 3) {
+                this.foot.update();
+            } else if (this.foot.check_falling() == 2) {
+                this.foot.set_falling(3);
+                this.clock = this.time.delayedCall(1000, () => {
+                    var foot_x = Phaser.Math.Between(100, game.config.width-100);
+                    this.foot.reset(foot_x);
+                    this.shadow.reset(foot_x);
+                    this.foot.set_falling(1);
+                }, null, this);
+            }
         }
+
+        if (this.gameOver && Phaser.Input.Keyboard.JustDown(keyF)) {
+            this.scene.start("playScene");
+        } 
+    }
+
+    setgameOver() {
+        this.gameOver = true;
     }
 }

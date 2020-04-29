@@ -44,7 +44,10 @@ class Play extends Phaser.Scene {
                 }, null, this);
             }
         }
-
+        if(this.gameOver) {
+            this.add.text(game.config.width/2, game.config.height/2, 'GAME OVER').setOrigin(0.5);
+            this.add.text(game.config.width/2, game.config.height/2 + 64, '(F)to Restart').setOrigin(0.5);
+        }
         if (this.gameOver && Phaser.Input.Keyboard.JustDown(keyF)) {
             this.scene.start("playScene");
         } 

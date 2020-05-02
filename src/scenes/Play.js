@@ -12,6 +12,7 @@ class Play extends Phaser.Scene {
         this.load.image("shadow", "./assets/shadow.png")
         this.load.image("background", "./assets/background.png")
         this.load.image("foreground", "./assets/foreground.png")
+        this.load.audio('music', "./assets/loop.mp3");
     }
 
     create() {
@@ -28,6 +29,13 @@ class Play extends Phaser.Scene {
         keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
         keyF = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F);
         this.gameOver = false;
+
+        var music = this.sound.add('music');
+        music.setLoop(true);
+        this.check_music;
+        if (this.check_music != false) {
+            music.play();
+        }
 
         function foot_smash() {
             if (this.foot.check_falling() == 1){
@@ -62,7 +70,8 @@ class Play extends Phaser.Scene {
             this.add.text(game.config.width/2, game.config.height/2 + 64, '(F)to Restart').setOrigin(0.5);
         }
         if (this.gameOver && Phaser.Input.Keyboard.JustDown(keyF)) {
-            this.scene.start("playScene");
+            this.check_music = false;
+            this.scene.restart("playScene");
         } 
     }
 

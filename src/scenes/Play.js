@@ -63,7 +63,7 @@ class Play extends Phaser.Scene {
             } else if (this.foot.check_falling() == 2) {
                 this.foot.set_falling(3);
                 this.clock = this.time.delayedCall(1000, () => {
-                    var foot_x = Phaser.Math.Between(100, game.config.width-100);
+                    var foot_x = Phaser.Math.Between(50, game.config.width-50);
                     this.foot.reset(foot_x);
                     this.shadow.reset(foot_x);
                     this.foot.set_falling(1);

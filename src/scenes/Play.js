@@ -12,6 +12,7 @@ class Play extends Phaser.Scene {
         this.load.image("shadow", "./assets/shadow.png")
         this.load.image("background", "./assets/background.png")
         this.load.image("foreground", "./assets/foreground.png")
+        this.load.image("badbug", "./assets/dungbad_01.png")
         this.load.audio('music', "./assets/loop.mp3");
     }
 
@@ -22,6 +23,7 @@ class Play extends Phaser.Scene {
         this.ball = new Dungball(this, game.config.width / 2 + 145, 432, 'dung').setOrigin(0.5, 0.5);
         this.player = new Scaraphys(this, game.config.width / 2 + 60, 300, 'playerSprite', 0, this.ball, game.settings.startingSpeed).setOrigin(0, -1).setScale(.5,.5);
         this.foot = new Foot(this, 500, -1000, 'foot').setOrigin(0, 0).setScale(.5,.5);
+        this.badbug = new Dungbad(this, -490, 400, 'badbug');
         this.shadow = new Shadow(this, 500, 300, 'shadow').setOrigin(0, 0);
 
         //define keyboard keys
@@ -45,7 +47,9 @@ class Play extends Phaser.Scene {
             }
         };
 
-        this.physics.add.overlap(this.player, this.foot, this.setgameOver, foot_smash, this)
+        
+        this.physics.add.overlap(this.player, this.foot, this.setgameOver, foot_smash, this);
+        //this.physics.add.overlap(this.player, this.badbug, this.setBadbug, this);
     }
 
     update() {
@@ -53,6 +57,7 @@ class Play extends Phaser.Scene {
             this.background.tilePositionX += 1;
             this.foreground.tilePositionX += 2;
             this.player.update();
+            this.badbug.update();
             if (this.foot.check_falling() == 1 || this.foot.check_falling() == 3) {
                 this.foot.update();
             } else if (this.foot.check_falling() == 2) {
@@ -64,6 +69,10 @@ class Play extends Phaser.Scene {
                     this.foot.set_falling(1);
                 }, null, this);
             }
+            
+           if(this.player.x - 100 <= this.badbug.x && this.badbug.x <= this.player.x + 100) {
+               this.setBadbug();
+           }
         }
         if(this.gameOver) {
             this.add.text(game.config.width/2, game.config.height/2, 'GAME OVER').setOrigin(0.5);
@@ -72,10 +81,27 @@ class Play extends Phaser.Scene {
         if (this.gameOver && Phaser.Input.Keyboard.JustDown(keyF)) {
             this.check_music = false;
             this.scene.restart("playScene");
-        } 
+        }
+
+        if(!this.badbug.alive) {
+            this.clock = this.time.delayedCall(2000, () => {
+                this.badbug.alive = true;
+            }, null, this);
+            this.badbug.x = -490;
+        }
     }
 
     setgameOver() {
         this.gameOver = true;
+    }
+
+    setBadbug () {
+        if (!this.player.raiseBall) {
+            this.badbug.alive = false;
+            this.ball.scalingX = this.ball.scalingX / 2;
+            this.ball.scalingY = this.ball.scalingY / 2;
+            this.ball.speedConversion = this.ball.speedConversion / 2;
+            this.ball.update(0);
+        }
     }
 }

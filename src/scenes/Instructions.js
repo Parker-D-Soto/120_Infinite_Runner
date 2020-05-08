@@ -13,7 +13,7 @@ class Instructions extends Phaser.Scene {
     }
 
     create(){
-        let instConfig = {
+        let menuConfig = {
             fontFamily: 'Courier',
             fontSize: '28px',
             backgroundColor: '#F3B141',

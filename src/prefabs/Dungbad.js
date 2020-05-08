@@ -5,6 +5,7 @@ class Dungbad extends Phaser.GameObjects.Sprite {
         scene.add.existing(this);
         scene.physics.add.existing(this); //add object to existing scene
         this.alive = false;
+        this.setScale(0.7, 0.7);
     }
     
     update() {

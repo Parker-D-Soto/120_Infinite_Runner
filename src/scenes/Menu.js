@@ -7,7 +7,7 @@ class Menu extends Phaser.Scene {
         this.load.image('title', './assets/title_screen.png');
     }
 
-    create(){
+    create(time, delta){
         let menuConfig = {
             fontFamily: 'Courier',
             fontSize: '28px',
@@ -22,12 +22,13 @@ class Menu extends Phaser.Scene {
         }
         
         this.background = this.add.tileSprite(0, 0, 0, 0, 'title').setOrigin(0, 0);
-        this.add.text(game.config.width/2 + 200, game.config.height-50, 'Press (f) to start', menuConfig).setOrigin(0.5);
+        this.add.text(game.config.width/2 + 200, game.config.height-50, 'Press (f) to play', menuConfig).setOrigin(0.5);
         keyF = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F);
     }
-    update(){
+    update(time, delta){
         if (Phaser.Input.Keyboard.JustDown(keyF)) {
-            this.scene.start("playScene");
+            console.log("here2");
+            this.scene.start("instructionsScene", time);
         }
     }
 }

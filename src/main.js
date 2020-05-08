@@ -2,12 +2,18 @@
 // Title: The Legend of Scarabaeus
 // Date Completed: May 5, 2020
 // Creative Tilt Justification:
-// Technical aspect we focused on the increasing size of the ball
-// as a representation of one's score gained rather than distance traveled
-// The music was an original piece taking influence from egyptian style
-// music (drums were sample beats)
-// Our visual style took a backyard scene and applied an egyptian like feel
-// to go along with the music.
+
+/* In the technical aspect we created an original algorithm,
+    that allows the player to be scored relative to the size
+    of the dungball over a given amount of time, i.e. if the ball
+    is kept bigger for a longer amount of time, the higher the score.
+    Also we were able to create a dropping and retracting foot that moves
+    around the screen randomly.
+    In the art aspect, we created all the assets ourselves. We put significant
+    effort in each asset and background, which we created. Also, the music
+    used in the game is an original score that we created (except for the drum beat)
+*/
+
 let config = {
     type: Phaser.CANVAS,
     width: 720,
@@ -18,7 +24,7 @@ let config = {
             debug: false
         }
     },
-    scene: [Menu, Play]
+    scene: [Menu, Instructions, Play]
 };
 
 let game = new Phaser.Game(config);

@@ -11,7 +11,7 @@ class Foot extends Phaser.GameObjects.Sprite {
     update() {
         if (this.falling != 3) {
             if (this.y < -100) {
-                this.y = this.y + 10;
+                this.y = this.y + 5;
             } else {
                 this.falling = 2;
             }
